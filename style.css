@@ -1,0 +1,165 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr 5fr;
+}
+
+ form {
+  color: white;
+  background: rgb(15, 101, 107);
+  width: 80vh;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  width: 100%;
+}
+
+.form-container > * {
+  margin-bottom: 30px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1.2rem;
+}
+
+label[for="status"] {
+  display: inline;
+  margin-right: 20px;
+  margin-bottom: 0;
+}
+
+#status {
+  width: 15px;
+  height: 15px;
+}
+
+input {
+  width: 100%;
+  background:rgb(15, 101, 107);
+  height: 20px;
+  font-size: 1rem;
+  color: white;
+  border: none;
+  border-bottom: 1px solid white;
+}
+
+input:focus {
+  background: white;
+  color:rgb(15, 101, 107);
+  border: none;
+}
+
+#submit-button {
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 8px;
+  background: white;
+  color:rgb(15, 101, 107);
+  transition: all 0.2s;
+}
+
+#submit-button:hover {
+  scale: 1.07;
+}
+
+#submit-button:active {
+  scale: 0.9;
+}
+
+
+
+#add-book {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  background:white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  right: 3%;
+  bottom: 3%;
+  transition: all 0.1s;
+}
+
+#add-book:hover {
+  scale: 1.05;
+}
+
+#add-book:active {
+  scale: 0.9;
+}
+
+
+
+.header {
+  background: rgb(20 145 155);
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+
+.header h1 {
+  color: white;
+  margin-right: 10px;
+}
+
+.header img {
+  background: white;
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
+}
+
+
+
+.content {
+  background: rgb(12, 85, 90);
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  gap: 20px;
+}
+
+.temp-card {
+  background: rgb(20 145 155);
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 1.1rem;
+  box-shadow: 8px 5px rgb(250, 250, 250);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+p:first-child {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.temp-card * {
+  margin: 10px 0;
+}
