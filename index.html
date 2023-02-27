@@ -12,45 +12,39 @@
   <title>My Library</title>
 </head>
 <body>
-  <form action="http://httpbin.org/post" method="post" class="add-book">
-    <div class="form-container">
-      <h2>Add a new book</h2>
+  <button id="add-book">+</button>
 
-      <div>
-        <label for="title">Title</label>
-        <input type="text" id="title" name="book_title" required="required">
-      </div>
-      <div>
-        <label for="author">Author</label>
-        <input type="text" id="author" name="book_author" required="required">
-      </div>
-      <div>
-        <label for="pages">Pages</label>
-        <input type="tel" id="pages" name="book_pages" required="required">
-      </div>
-      <div id="status-div">
-        <label for="status">Have you read this book?</label>
-        <input type="checkbox" id="status" name="book_status" required="required" value="read">
-      </div>
-      <button type="submit" id="submit-button">Add book</button>
-    </div>
-  </form>
-
-  <button id="add-book">
-    <img src="Assets/plus-icon.png" alt="Add book icon">
-  </button>
-
-  <div class="header">
-    <h1>My Library</h1>
-    <img src="Assets/books-icon.png" alt="Library logo">
+<form action="http://httpbin.org/post" method="post">
+  <button id="close-form">x</button>
+  <h3>Add a book</h3>
+  
+  <div>
+    <label for="title">Title</label>
+    <input type="text" id="title" name="book_title" placeholder="Dune" required>
   </div>
-  <div class="content">
-    <div class="temp-card">
-      <p>Title</p>
-      <p>Author</p>
-      <p>Page count</p>
-      <p>Status</p>
-    </div>
+  
+  <div>
+    <label for="author">Author</label>
+    <input type="text" id="author" name="book_author" placeholder="Frank Herbert" required>
   </div>
+  
+  <div>
+    <label for="pages">Page count</label>
+    <input type="tel" id="pages" name="book_pages" placeholder="412" required>
+  </div>
+  
+  <div>
+    <label for="status">Have you read the book?</label>
+    <input type="checkbox" id="status" name="book_status" value="Read" required>
+  </div>
+  
+  <button type="submit" id="submit-button">Add book</button>
+</form>
+
+<div class="header">
+  <h1>My Library</h1>
+</div>
+<div class="content">
+</div>
 </body>
 </html>
