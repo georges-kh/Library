@@ -1,20 +1,7 @@
-// BRING FORM UP
+
 const add = document.querySelector("#add-book");
 const form = document.querySelector("form");
-
-add.addEventListener("click", () => {
-  form.style.display = "flex";
-});
-
-
-// CLOSE FORM
-const close = document.querySelector("#close-form");
-
-close.addEventListener("click", closeForm);
-
-function closeForm() {
-  form.style.display = "none";
-}
+let Library = [];
 
 // STORE BOOKS
 class Books {
@@ -26,7 +13,44 @@ class Books {
   }
 }
 
-let Library = [];
+// BRING FORM UP
+add.addEventListener("click", () => {
+  form.style.display = "flex";
+});
+
+// PREVENT THE FORM FROM SUBMITTING
+const submit = document.querySelector("#submit-button");
+submit.addEventListener("click", (event) => {
+  event.preventDefault();
+  closeForm();
+  updateLibrary();
+  displayBook();
+  resetForm();
+})
+
+// CLOSE FORM
+const close = document.querySelector("#close-form");
+
+close.addEventListener("click", closeForm);
+
+function closeForm() {
+  form.style.display = "none";
+}
+
+//RESET THE FORM
+function resetForm() {
+  form.reset();
+}
+
+function updateLibrary() {
+  const title = document.querySelector("#title");
+  const author = document.querySelector("#author");
+  const pages = document.querySelector("#pages");
+  const statusValue = (document.querySelector("#status").checked) ? "Read" : "Not read";
+
+  let book = new Books(title.value, author.value, pages.value, statusValue);
+  addBook(book);
+}
 
 // stores books in the Library object
 function addBook(book) {
@@ -34,7 +58,6 @@ function addBook(book) {
   // Does not return anything, stores each book in Library
   Library.push(book);
 }
-
 
 // displays each book in card on the page
 function displayBook() {
@@ -51,24 +74,4 @@ function displayBook() {
     line.textContent = i;
     card.appendChild(line);
   }
-}
-
-
-// PREVENT THE FORM FROM SUBMITTING
-const submit = document.querySelector("#submit-button");
-submit.addEventListener("click", (event) => {
-  event.preventDefault();
-  closeForm();
-  updateLibrary();
-  displayBook();
-})
-
-function updateLibrary() {
-  const title = document.querySelector("#title");
-  const author = document.querySelector("#author");
-  const pages = document.querySelector("#pages");
-  const statusValue = (document.querySelector("#status").checked) ? "Read" : "Not read";
-
-  let book = new Books(title.value, author.value, pages.value, statusValue);
-  addBook(book);
 }
