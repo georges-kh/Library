@@ -1,77 +1,90 @@
-
 const add = document.querySelector("#add-book");
 const form = document.querySelector("form");
-let Library = [];
-
-// STORE BOOKS
-class Books {
-  constructor(name, author, pages, status) {
-    this.name = name;
-    this.author = author;
-    this.pages = pages;
-    this.stauts = status;
-  }
-}
-
-// BRING FORM UP
-add.addEventListener("click", () => {
-  form.style.display = "flex";
-});
-
-// PREVENT THE FORM FROM SUBMITTING
-const submit = document.querySelector("#submit-button");
-submit.addEventListener("click", (event) => {
-  event.preventDefault();
-  closeForm();
-  updateLibrary();
-  displayBook();
-  resetForm();
-})
-
-// CLOSE FORM
 const close = document.querySelector("#close-form");
+const submit = document.querySelector("#submit-button");
+let Library = []
+
+add.addEventListener("click", () => {
+  form.style.visibility = "visible";
+});
 
 close.addEventListener("click", closeForm);
 
 function closeForm() {
-  form.style.display = "none";
-}
-
-//RESET THE FORM
-function resetForm() {
+  form.style.visibility = "hidden";
   form.reset();
+};
+
+submit.addEventListener("click", (event) => {
+  event.preventDefault();
+  addBook(Library);
+  displayLibrary();
+  closeForm();
+});
+
+class Book {
+  constructor(title, author, pages, status) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.status = status;
+  }
 }
 
-function updateLibrary() {
-  const title = document.querySelector("#title");
-  const author = document.querySelector("#author");
-  const pages = document.querySelector("#pages");
-  const statusValue = (document.querySelector("#status").checked) ? "Read" : "Not read";
-
-  let book = new Books(title.value, author.value, pages.value, statusValue);
-  addBook(book);
+function makeBook() {
+  let bookTitle = document.querySelector("#title").value;
+  let bookAuthor = document.querySelector("#author").value;
+  let bookPages = document.querySelector("#pages").value;
+  let bookStatus = document.querySelector("#status").value;
+  
+  let book = new Book(bookTitle, bookAuthor, bookPages, bookStatus);
+  return book;
 }
 
-// stores books in the Library object
-function addBook(book) {
-  // book: an object that contains all the information the user submitted about a book
-  // Does not return anything, stores each book in Library
+function addBook(Library) {
+  let book = makeBook();
+  for (let el of Library) {
+    if (el.title === book.title) {
+      alert("You've already added this book!");
+      return
+    }
+  }
   Library.push(book);
 }
 
-// displays each book in card on the page
-function displayBook() {
-  // Library: an array of object containing information about each  book  the user submitted
-  
-  //creates a div with the class "card" and adds it to "content"
-  let card = document.createElement("div");
-  document.querySelector(".content").appendChild(card);
-  card.classList.add("card");
-  
-  for (let i of Object.values(Library[Library.length - 1])) {
-    //creates a p element and adds the name, author, page count, and status a book and adds it to card
-    let line = document.createElement("p");
-    line.textContent = i;
-    card.appendChild(line);
+function displayLibrary() {
+  clearCards();
+  for (let obj of Library) {
+    // Create card
+    let card = document.createElement("div");
+    card.classList.add("card");
+    document.querySelector(".content").appendChild(card);
+
+    // Create delete card button
+    let deleteCard = document.createElement("button");
+    deleteCard.classList.add("delete-card");
+    deleteCard.dataset.index = Library.indexOf(obj);
+    deleteCard.textContent = "-";
+    card.appendChild(deleteCard);
+
+    // Add function to delete card button
+    deleteCard.addEventListener("click", () => {
+      Library.splice(Number(deleteCard.dataset.index), 1);
+      displayLibrary();
+    })
+
+    // Fill card with info
+    for (let i of Object.values(obj)) {
+      let line = document.createElement("p")
+      line.textContent = i;
+      card.appendChild(line);
+    }
+  }
+}
+
+function clearCards() {
+  let cards = document.querySelectorAll(".card");
+  for (let card of cards) {
+    document.querySelector(".content").removeChild(card);
   }
 }
