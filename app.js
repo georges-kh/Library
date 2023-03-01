@@ -1,25 +1,31 @@
 const add = document.querySelector("#add-book");
+const modal = document.querySelector(".modal")
 const form = document.querySelector("form");
 const close = document.querySelector("#close-form");
 const submit = document.querySelector("#submit-button");
 let Library = []
 
 add.addEventListener("click", () => {
-  form.style.visibility = "visible";
+  modal.style.display = "flex";
 });
 
 close.addEventListener("click", closeForm);
 
 function closeForm() {
-  form.style.visibility = "hidden";
+  modal.style.display = "none";
   form.reset();
 };
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    closeForm()
+  }
+}
 
 submit.addEventListener("click", (event) => {
   event.preventDefault();
   addBook(Library);
   displayLibrary();
-  closeForm();
 });
 
 class Book {
@@ -35,21 +41,28 @@ function makeBook() {
   let bookTitle = document.querySelector("#title").value;
   let bookAuthor = document.querySelector("#author").value;
   let bookPages = document.querySelector("#pages").value;
-  let bookStatus = document.querySelector("#status").value;
-  
+  let bookStatus = (document.querySelector("#status").checked) ? "Read" : "Not read";
+
   let book = new Book(bookTitle, bookAuthor, bookPages, bookStatus);
   return book;
 }
 
 function addBook(Library) {
   let book = makeBook();
+  let titleField = document.querySelector("input[name='book_title']");
+  let repeatAlert = document.querySelector("#repeat-alert");
   for (let el of Library) {
     if (el.title === book.title) {
-      alert("You've already added this book!");
-      return
+      titleField.classList = "invalid";
+      repeatAlert.style.display = "block";
+      return;
     }
   }
+
+  titleField.classList.remove("invalid");
+  repeatAlert.style.display = "none";
   Library.push(book);
+  closeForm();
 }
 
 function displayLibrary() {
@@ -74,10 +87,24 @@ function displayLibrary() {
     })
 
     // Fill card with info
-    for (let i of Object.values(obj)) {
+    for (let i of Object.values(obj).slice(0, 2)) {
       let line = document.createElement("p")
       line.textContent = i;
       card.appendChild(line);
+    }
+
+    let pageCount = document.createElement("p");
+    pageCount.textContent = `${obj.pages} pages`;
+    card.appendChild(pageCount);
+
+    let toggleStatusBtn = document.createElement("button");
+    toggleStatusBtn.classList.add("toggle-status");
+    toggleStatusBtn.textContent = obj.status;
+    card.appendChild(toggleStatusBtn);
+
+    let toggle = {"Read": "Not read", "Not read": "Read"};
+    toggleStatusBtn.onclick = function() {
+      toggleStatusBtn.textContent = toggle[toggleStatusBtn.textContent];
     }
   }
 }
