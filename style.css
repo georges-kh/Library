@@ -1,4 +1,9 @@
-/** common styljng of border for card, form and button **/
+:root {
+  --border: 1px solid black;
+  --shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+  --background-color: white;
+  --row-height: 200px;
+}
 
 * {
   margin: 0;
@@ -12,13 +17,14 @@ body {
   height: 100vh;
   position: relative;
   display: grid;
-  grid-template-rows: 1fr 5fr;
+  grid-template-rows: 16vh 1fr;
 }
 
 /** FORM **/
 .modal {
   width: 100%;
   height: 100%;
+  background: rgba(0, 0, 0, 0.3);
   display: none;
   z-index: 1;
   position: fixed;
@@ -28,29 +34,26 @@ body {
 
 form {
   position: relative;
-  width: 20%;
-  height: 60%;
-  padding: 40px;
-  background: black;
-  color: white;
-  border: 1px solid white;
+  width: clamp(200px, 50vw, 500px);
+  padding: 2rem;
+  background: var(--background-color);
   border-radius: 20px;
-  box-shadow: 8px 3px white;
+  box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: start;
+  gap: 0.3rem;
 }
 
 #close-form {
   position: absolute;
   right: 20px;
   top: 20px;
-  width: 20px;
-  height: 20px;
-  background: black;
-  color: white;
-  border: 1px solid white;
+  padding: 5px 10px;
+  background: var(--background-color);
+  border: none;
+  box-shadow: var(--shadow);
   border-radius: 20px;
   cursor: pointer;
 }
@@ -67,16 +70,12 @@ form div {
 
 form label {
   display: block;
-  margin-bottom: 10px;
-}
-
-form input {
-  color: white;
+  margin-bottom: 0.6rem;
 }
 
 label[for="status"] {
   display: inline;
-  margin-right: 10px;
+  margin-right: 0.6rem;
 }
 
 #status {
@@ -88,23 +87,22 @@ input[type="text"],
 input[type="tel"] {
   width: 90%;
   border: none;
-  border-bottom: 1px solid white;
-  background: black;
+  border-bottom: var(--border);
+  background: var(--background-color);
+  padding: 2px 0;
 }
 
 #submit-button {
-  border: 1px solid white;
-  box-shadow: 5px 2px white;
+  border: none;
+  box-shadow: var(--shadow);
   border-radius: 8px;
   padding: 5px 8px;
-  color: white;
-  background: black;
-  font-size: 1.1rem;
+  background: var(--background-color);
+  font-size: 1rem;
   cursor: pointer;
 }
 
 input.invalid {
-  box-sizing: border-box;
   border: 1px solid red;
   border-radius: 5px;
   position: relative;
@@ -122,51 +120,45 @@ input.invalid {
 /** ADD BOOK **/
 #add-book {
   font-size: 1.2rem;
-  padding: 8px 13px;
   border: none;
   border-radius: 40px;
-  background: black;
-  color: white;
-  box-shadow: 4px 1px white;
-  border: 1px solid white;
+  padding: 8px 13px;
+  background: var(--background-color);
+  box-shadow: var(--shadow);
   cursor: pointer;
   position: fixed;
   right: 4vw;
   bottom: 4vw;
-  transition: all 0.1s;
+  z-index: 1;
 }
 /** ADD BOOK **/
 
 /** HEADER **/
 .header {
-  background: black;
-  border-bottom: 1px solid white;
+  box-shadow: var(--shadow);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .header h1 {
-  color: white;
+  font-size: 1.5rem;
 }
 /** HEADER **/
 
 /** CONTENT **/
 .content {
-  background: grey;
   padding: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  grid-auto-rows: 200px;
   gap: 30px;
 }
 
 .card {
-  height: 200px;
-  background: black;
-  color: white;
+  background: var(--background-color);
   border-radius: 10px;
-  border: 1px solid white;
-  box-shadow: 8px 3px rgb(250, 250, 250);
+  box-shadow: var(--shadow);
   position: relative;
   /** Center text **/
   display: flex;
@@ -188,12 +180,11 @@ input.invalid {
 .delete-card {
   font-size: 1.2rem;
   position: absolute;
-  background: black;
-  color: white;
-  width: 20px;
-  height: 20px;
-  border-radius: 10px;
-  border: 1px solid white;
+  background: var(--background-color);
+  border: none;
+  box-shadow: var(--shadow);
+  padding: 4px 12px;
+  border-radius: 15px;
   right: 10px;
   top: 10px;
   cursor: pointer;
@@ -201,26 +192,36 @@ input.invalid {
 
 .toggle-status {
   padding: 5px 8px;
-  background: black;
-  color: white;
-  border: 1px solid white;
+  background: var(--background-color);
+  border: none;
+  box-shadow: var(--shadow);
   border-radius: 5px;
 }
 /** CONTENT **/
 
+/** BUTTON ANIMATION **/
 #add-book:hover,
 #submit-button:hover,
+#close-form:hover,
 .delete-card:hover,
 .toggle-status:hover {
-  scale: 1.05;
+  scale: 1.1;
 }
 
 #add-book:active,
 #submit-button:active,
+#close-form:active,
 .delete-card:active,
 .toggle-status:active {
   scale: 0.95;
-  background: white;
-  color: black;
   box-shadow: none;
 }
+
+#add-book,
+#submit-button,
+#close-form,
+.delete-card,
+.toggle-status {
+  transition: all 0.1s;
+}
+/** BUTTON ANIMATION **/
